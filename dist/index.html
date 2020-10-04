@@ -1,0 +1,414 @@
+<html>
+
+<head>
+    <title>PuppyPals</title>
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- NAV BAR------------------------------------------------------------- -->
+    <div id='navbar-container'>
+
+    </div>
+    <!--MAIN CONTENT----------------------------------------------------- -->
+    <div id='main-container'>
+        <!-- HANDLE BARS HERE-------------------------------------------- -->
+
+        <div id="map"></div>
+    </div>
+
+
+    <!-- NAV BAR Authenticate------------------------------------------------------------- -->
+    <script id="authNav-template" type="text/x-handlebars-template">
+        <nav>
+            <div class="nav-wrapper">
+                <a id="logo-container" class="brand-logo center">PuppyPals</a>
+                <a data-activates="mobile-demo" class="button-collapse"><i class="material-icons menu">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a class='profile'>Profile</a></li>
+                    <li><a class='map'>Map</a></li>
+                    <li><a class='events'>Events</a></li>
+                    <li><a class='logout'>Logout</a></li>
+                </ul>
+                <ul id="mobile-demo" class="side-nav">
+                    <li class='top-nav-area'>
+                        <div class="user-view">
+                            <a><img class="circle side-picture" src="{{userPicture}}"></a>
+                            <a>
+                                <div class="white-text nav-user-name">{{firstName}} {{lastName}}</div>
+                            </a>
+                        </div>
+                    </li>
+                    <li><a class="profile waves-effect">Profile</a></li>
+                    <li><a class="map waves-effect">Map</a></li>
+                    <li><a class="events waves-effect">Events</a></li>
+                    <div class="divider"></div>
+                    <li><a class="logout waves-effect">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </script>
+
+
+    <!-- NAV BAR Not Authenticated------------------------------------------------------------- -->
+    <script id="nonAuthNav-template" type="text/x-handlebars-template">
+        <nav>
+            <div class="nav-wrapper">
+                <a id="logo-container" class="brand-logo center">Puppy Pals</a>
+                <a data-activates="mobile-demo" class="button-collapse"><i class="material-icons menu">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a class='login'>Login</a></li>
+                    <li><a class='register'>Sign-up</a></li>
+                </ul>
+                <ul id="mobile-demo" class="side-nav">
+                    <li><a class="login waves-effect">Login</a></li>
+                    <li><a class="register waves-effect">Sign-up</a></li>
+                    <div class="divider"></div>
+                </ul>
+            </div>
+        </nav>
+    </script>
+    <!-- HOME PAGE -->
+    <script id="home-template" type="text/x-handlebars-template">
+        <header id='header'>
+            <div class="header-text">
+                <h1> MUST LOVE <br><span id="photography"> DOGS. </span></h1>
+                <p id='p'> PuppyPals is a free dog social networking app designed to connect nearby dogs and dog owners! We are a furry friend focussed community, and strive to give dog owners endless opportunities to socialize their dogs and other dog lovers. </p>
+                <button class="home-btn"> Start Now! </button>
+            </div>
+        </header>
+    </script>
+    <!-- LOGIN PAGE/REGISTRATION ----------------------------------------------------------------------------------------->
+    <script id="login-template" type="text/x-handlebars-template">
+
+        <div class="container white z-depth-2">
+            <ul class="tabs teal">
+                <li class="tab col s3"><a class="white-text active login">login</a></li>
+                <li class="tab col s3"><a class="white-text register">register</a></li>
+            </ul>
+            <!-- Login page -------------------------------------------------------->
+            <div id="login" class="col s12">
+                <form class="col s12">
+                    <div class="form-container">
+                        <h3 class="teal-text">Hello!</h3>
+                        <div class="row email">
+                            <div class="login-input-field col s12">
+                                <input id="login-email" type="email" class="validate">
+                                <label for="email">Email</label>
+                            </div>
+                        </div>
+                        <div class="row password">
+                            <div class="login-input-field col s12">
+                                <input id="login-password" type="password" class="validate">
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+                        <br>
+                        <button class="login-btn btn waves-effect waves-light teal" type="submit" name="action">Connect</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </script>
+    <!-- register page ------------------------------------------------------>
+    <script id="register-template" type="text/x-handlebars-template">
+        <div class="container white z-depth-2">
+            <ul class="tabs teal">
+                <li class="tab col s3"><a class="white-text login">login</a></li>
+                <li class="tab col s3"><a class="white-text active register">register</a></li>
+            </ul>
+            <div id="register" class="col s12">
+                <form class="col s12">
+                    <div class="form-container">
+                        <h3 class="teal-text">Join Us!</h3>
+                        <div class="row name">
+                            <div class="register-input-field col s6">
+                                <input id="register-first" type="text" class="validate">
+                                <label for="last_name">First Name</label>
+                            </div>
+                            <div class="register-input-field col s6">
+                                <input id="register-last" type="text" class="validate">
+                                <label for="last">Last Name</label>
+                            </div>
+                        </div>
+                        <div class="row email">
+                            <div class="register-input-field col s12">
+                                <input id="register-email" type="email" class="validate">
+                                <label for="email">Email</label>
+                            </div>
+                        </div>
+                        <div class="row password">
+                            <div class="register-input-field col s12">
+                                <input id="register-password" type="password" class="validate">
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+                        <button class="register-btn btn waves-effect waves-light teal" type="">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </script>
+    <!-- PROFILE PAGE-------------------------------------------------------------------------------------------------- -->
+    <script id="profile-template" type="text/x-handlebars-template">
+        <a class="profileEdit-btn waves-effect waves-light btn-large right">Edit Profile</a>
+        <div class="card-panel">
+            <a><img class="profile-picture" src="{{userPicture}}" onerror="this.src='https://www.shvilhalev.co.il/wp-content/uploads/2018/07/default-user-image-300x300.png'"></a>
+            <div class='profile-name'>{{firstName}} {{lastName}}</div>
+        </div>
+        <div class="profile-container row">
+            <div class="col s12 m6 l6">
+                <div class="profile-card card">
+                    {{#if city}}
+                    <div class='profile-location'><i class="material-icons">location_on</i>{{city}}, {{country}}</div>
+                    <p class='profile-aboutme'>{{aboutMe}}</p>
+                    {{/if}} {{#unless city}}
+                    <div class='profile-location'><i class="material-icons">location_on</i>City, Country</div>
+                    <p class='profile-aboutme'>Please describe yourself so people can get to know you and your dogs!</p>
+                    {{/unless}}
+                </div>
+            </div>
+            {{#if dogs}} {{#each dogs}}
+            <div class="col s12 m6 l6">
+                <div class="profile-card card">
+                    <a><img class="profile-dog-picture circle" src="{{dogPicture}}"></a>
+                    <div class='profile-dog-name'>{{dogName}}</div>
+                    <div class='profile-dog-text'>
+                        <div class='profile-breed'><i class="fas fa-paw"></i>&nbsp&nbsp&nbsp {{breed}}</div>
+                        <div class='profile-weight'><i class="fas fa-weight"></i>&nbsp&nbsp&nbsp {{weight}}kg</div>
+                        <div class='profile-toy'><i class="fas fa-shapes"></i>&nbsp&nbsp&nbsp {{favoriteToy}}</div>
+                        <div class='profile-treat'><i class="fas fa-bone"></i>&nbsp&nbsp&nbsp {{favoriteTreat}}</div>
+                    </div>
+                </div>
+            </div>
+            {{/each}} {{/if}} {{#unless dogs}}
+            <div class="col s12 m6 l6">
+                <div class="profile-card card">
+                    <a><img class="profile-dog-picture circle" src="{{dogPicture}}" onerror="this.src='https://www.clipartkey.com/mpngs/m/42-420445_picture-free-library-grey-grey-dog-paw-print.png'"></a>
+                    <div class='profile-dog-name'>Your Dog!</div>
+                    <div class='profile-dog-text'>
+                        <div class='profile-breed'><i class="fas fa-paw"></i>&nbsp&nbsp&nbsp Dog breed</div>
+                        <div class='profile-weight'><i class="fas fa-weight"></i>&nbsp&nbsp&nbsp Dog weight</div>
+                        <div class='profile-toy'><i class="fas fa-shapes"></i>&nbsp&nbsp&nbsp Favorite Toy</div>
+                        <div class='profile-treat'><i class="fas fa-bone"></i>&nbsp&nbsp&nbsp Favorite Treat</div>
+                    </div>
+                </div>
+            </div>
+            {{/unless}}
+        </div>
+        </div>
+
+        <!-- CHAT------------------------------------------------------------------ -->
+        <div id="body">
+            <div id="chat-circle" class="large btn btn-raised">
+                <div id="chat-overlay"></div>
+                <i class="chat-icon material-icons large">chat</i>
+            </div>
+            <div class="chat-box">
+                <div class="chat-box-header">
+                    Chat&nbsp&nbsp&nbsp<i class="fas fa-paw"></i>
+                    <span class="chat-box-toggle"><i class="material-icons">close</i></span>
+                </div>
+                <div class="chat-box-overlay"></div>
+                <div class="chat-logs"></div>
+                <div class="chat-input">
+                    <form class="idForm">
+                        <input id="chat-input" type="text" placeholder="Send a message..." />
+                        <div class="chat-submit" onclick="ck(this)">
+                            <i class="material-icons send">send</i>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script id="message-template" type="text/x-handlebars-template">
+        <div class="message">
+            <p>
+                <span class="message">{{time}}:{{name}}: {{input}}</span>
+            </p>
+        </div>
+    </script>
+    <!-- EVENTS PAGE ----------------------------------------------------------------------------------------------------->
+    <script id="events-template" type="text/x-handlebars-template">
+        <ul class="collapsible">
+            {{#each events}}
+            <li class="{{_id}}">
+                <div class="collapsible-header "><img class='event-picture' src="{{eventPicture}}" alt="">
+                    <div class='event-name'>{{eventName}}</div>
+                </div>
+                <div class="event-info collapsible-body">
+                    <div class="event-info card-action right-align"><a class="event-add btn-floating btn-tiny waves-effect waves-light"><i
+                                class="join material-icons">add</i></a></div>
+                    <div class='event-column'>
+                                <div class='event-column1'>
+                                <div class='event-time'>Join {{eventOwner.firstName}} {{eventOwner.lastName}}</div>
+                    <div class='event-time'>from {{startTime}}am to {{endTime}}pm!</div>
+                    <br>
+                    <div>{{address}}</div>
+                    <div>{{type}}</div>
+                    <span>{{description}}</span>
+                </div>
+                <div class='event-column2'>
+                    <div class='other-attend'>
+                    <div class='white' style='font-weight: bold; font-size: 15;'>Participants:</div>
+                    {{#each participations}}
+                    <div class='participant'>{{firstName}} {{lastName}}</div>
+                    {{/each}}
+                </div>
+                </div>
+            </div>
+
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+        <a class="event-create waves-effect waves-light btn-large right">Add Event</a>
+    </script>
+
+    <!-- PROFILE EDIT FORM ----------------------------------------------------------------------------- -->
+    <script id="profileEdit-template" type="text/x-handlebars-template">
+        <div id='profileEdit-container'>
+            <h6>Edit your profile</h6>
+            <div class="row photo">
+                <div class="input-field col l4 m4 s12">
+                    <input class="user-photo validate" placeholder="Picture URL here" type="text">
+                </div>
+                <div class="input-field col l4 m4 s12">
+                    <input class="user-first validate" value="{{firstName}}" placeholder="First Name" type="text">
+                </div>
+                <div class="input-field col l4 m4 s12">
+                    <input class="user-last validate" value="{{lastName}}" placeholder="Last Name" type="text">
+                </div>
+            </div>
+            <br>
+            <div class="row distance">
+                <div class="input-field col l4 m4 s12">
+                    <input class="user-location validate" placeholder="Location" type="text">
+                </div>
+                <div class="col l4 m4 s6">
+                    <label class='radius' for="title">Max Meet-up Distance (m)</label>
+                </div>
+                <div class="input-field left col l2 m2 s12">
+                    <input class="user-radius validate" value="300" type="number">
+                </div>
+            </div>
+            <div class="row about">
+                <div class="input-field col l12 m12 s12">
+                    <input class="user-about validate" placeholder="About yourself" type="text">
+                </div>
+            </div>
+            <h6>Now about your dog...</h6>
+            <div class="row dogPhoto">
+                <div class="input-field col l4 m4 s12">
+                    <input class="user-dog-photo validate" placeholder="Picture URL here" type="text">
+                </div>
+                <div class="input-field col l4 m4 s12">
+                    <input class="user-dog-name validate" placeholder="Name" type="text">
+                </div>
+                <div class="input-field col l4 m4 s12">
+                    <input class="user-dog-breed validate" placeholder="Breed" type="text">
+                </div>
+            </div>
+            <div class="row weight">
+                <div class="input-field col l4 m4 s12">
+                    <input class="user-dog-weight validate" placeholder="Weight" type="number">
+                </div>
+                <div class="input-field col l4 m4 s12">
+                    <input class="user-dog-toy validate" placeholder="Favorite toy" type="text">
+                </div>
+                <div class="input-field col l4 m4 s12">
+                    <input class="user-dog-treat validate" placeholder="Favorite treat" type="text">
+                </div>
+            </div>
+            <a class="edit-profile waves-effect waves-light btn-large right">Submit</a>
+            </form>
+    </script>
+    <!-- EVENTS FORM PAGE----------------------------------------------------------------------------------------------------->
+    <script id="eventsForm-template" type="text/x-handlebars-template">
+        <div id='container'>
+            <h6>Create your event</h6>
+            <div class="row title">
+                <div class="input-field col s12">
+                    <input class="event-title event-input" placeholder="Event title" type="text">
+                </div>
+            </div>
+            <div class="row photo">
+                <div class="input-field file-field col l6 m6 s12">
+                    <input class="event-photo validate" placeholder="Picture URL here" type="text">
+                </div>
+                <div class=" select input-field col l6 m6 s12">
+                    <input class="event-type validate" placeholder="Event type (walk, birthday, training, etc)" type="text">
+                </div>
+            </div>
+            <div class="row location">
+                <div class="input-field col s12">
+                    <input class="event-location validate" placeholder="Event location" type="text">
+                </div>
+            </div>
+            <div class="row date">
+                <div class="input-field col l6 m6 s12">
+                    <label>Date</label><br>
+                    <input class="event-date datepicker" type="date">
+                </div>
+                <div class="input-field col l3 m3 s6">
+                    <label>Start Time</label><br>
+                    <input class='event-start' type="time" name="appt" required>
+                </div>
+                <div class="input-field col l3 m3 s6">
+                    <label>End Time</label><br>
+                    <input class='event-end' type="time" name="appt" required>
+                </div>
+            </div>
+            <div class="row description">
+                <div class="input-field col s12">
+                    <input class="event-description validate" placeholder='Describe your event' type="text">
+                </div>
+            </div>
+            </form>
+            <a class="event-submit waves-effect waves-light btn-large right">Submit</a>
+        </div>
+    </script>
+
+    <script src="/moment/moment.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./handlebars/dist/handlebars.js"></script>
+    <script src="./jquery/dist/jquery.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZAMd5ujixxcusvcP1f8SCsSVDcQaZp-o"></script>
+    <!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> -->
+    <script src="renderer.js"></script>
+    <script src="apiManager.js"></script>
+    <script src="main.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script>
+        $("#navbar-container").on("click", ".button-collapse", function() {
+            $(this).sideNav()
+        })
+    </script>
+    <script>
+        $("#main-container").on("click", ".collapsible", function() {
+            $(this).collapsible();
+        });
+    </script>
+    <script>
+        $("#main-container").on("click", "#chat-circle", () => {
+            $("#chat-circle").toggle('scale');
+            $(".chat-box").toggle('scale');
+        })
+
+
+        $("#main-container").on("click", ".chat-box-toggle", () => {
+            $("#chat-circle").toggle('scale');
+            $(".chat-box").toggle('scale');
+        })
+    </script>
+</body>
+
+</html>
